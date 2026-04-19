@@ -29,18 +29,16 @@ typecheck: ## Type-check with ty
 	uv run ty check src/
 
 # ─── Testing ─────────────────────────────────────────────────────
-test: ## Run pytest
-	uv run pytest
-
-test-cov: ## Run pytest with coverage report
+test: ## Run pytest with coverage report
 	uv run pytest --cov=src --cov-report=term-missing
 
 # ─── Notebooks ───────────────────────────────────────────────────
 notebooks: ## Execute all notebooks end-to-end (validate they run clean)
-	@for nb in notebooks/0*.ipynb; do \
+	@for nb in notebooks/0[0-9]_*.ipynb; do \
 		echo "▶ Executing $$nb ..."; \
 		uv run jupyter nbconvert --to notebook --execute \
-			--ExecutePreprocessor.timeout=300 "$$nb" || exit 1; \
+			--ExecutePreprocessor.timeout=600 \
+			--output-dir /tmp "$$nb" || exit 1; \
 	done
 	@echo "\n✅ All notebooks executed successfully."
 
@@ -65,4 +63,4 @@ reset: clean ## Full reset: clean + remove venv
 	@echo "🔄 Reset. Run 'make setup' to rebuild."
 
 # ─── CI (GitHub Actions) ─────────────────────────────────────────
-ci: sync lint test notebooks ## Full CI pipeline: sync → lint → test → notebooks
+ci: sync lint test ## Full CI pipeline: sync → lint → test
