@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rtk ls *)",
+      "Bash(rtk read *)",
+      "Bash(python -c \"import hdbscan; print\\('hdbscan ok'\\)\")",
+      "Bash(python -c \"import umap; print\\('umap ok'\\)\")",
+      "Bash(python -c \"import streamlit; print\\('streamlit ok'\\)\")"
+    ]
+  }
+}

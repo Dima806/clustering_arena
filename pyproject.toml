@@ -1,0 +1,45 @@
+[project]
+name = "clustering-arena"
+version = "0.1.0"
+description = "No, K-Means is not always the answer — a clustering algorithm arena"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = [
+    "scikit-learn>=1.5",
+    "hdbscan>=0.8.38",
+    "umap-learn>=0.5",
+    "matplotlib>=3.9",
+    "seaborn>=0.13",
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "scipy>=1.14",
+    "streamlit>=1.38",
+    "joblib>=1.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.8",
+    "ty>=0.0.1a7",
+    "jupyter>=1.1",
+    "ipykernel>=6.29",
+    "nbconvert>=7.16",
+    "nbclient>=0.10",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 99
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "N", "B", "A", "SIM", "PTH"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
