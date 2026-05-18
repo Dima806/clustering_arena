@@ -96,3 +96,9 @@ make ci        sync → lint → test
 ## Stack
 
 Python 3.12 · scikit-learn · hdbscan · umap-learn · matplotlib · seaborn · streamlit · uv
+
+---
+
+## TODO
+
+Consider adding topological clustering methods (such as those supported by `scikit-tda` or `gudhi`) that shines when analyzing data with complex topologies, such as ring-shaped clusters, interlinked spirals, or clusters with internal voids. On the other hand, it usually struggles with high-dimensional, noisy, large-scale data. Still worth checking how it compares on current datasets, or perhaps on a synthetic dataset with two concentric rings (the classic "circles" dataset from `sklearn`).
