@@ -49,6 +49,7 @@ circles:  ToMATo 1.000, HDBSCAN 1.000 — K-Means 0.017 CATASTROPHIC FAIL
 - Commits: conventional commits, ≤50 char subject
 - All code must pass `make lint` before commit
 - SpectralClustering: n ≤ 5,000 (O(n²) affinity matrix)
+- ToMATo: recommended by NB05 when d ≤ 10 (low-d topology branch in flowchart)
 - UMAP: pre-compute once, cache with joblib in outputs/umap_*.pkl
 - Notebooks: each must complete < 10 min (timeout=600s in Makefile)
 - Notebook outputs go to /tmp (--output-dir /tmp), no .nbconvert.ipynb artifacts

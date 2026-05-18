@@ -28,7 +28,7 @@ git clone <repo>
 cd clustering_arena
 make setup      # installs uv + all deps + Jupyter kernel
 make test       # 45 tests, 99% coverage
-make notebooks  # executes all 5 notebooks
+make notebooks  # executes all 6 notebooks
 make run        # launches Streamlit app at http://localhost:8501
 ```
 
@@ -45,7 +45,7 @@ clustering_arena/
 │   ├── 02_algorithm_comparison.ipynb    # Arena: ARI heatmap, runtime chart (9 algos × 4 datasets)
 │   ├── 03_deep_dive_density.ipynb       # DBSCAN vs HDBSCAN, condensed tree
 │   ├── 04_deep_dive_hierarchical.ipynb  # Dendrograms, Ward vs Complete
-│   ├── 05_choosing_the_right_algorithm.ipynb  # recommend_algorithm(X)
+│   ├── 05_choosing_the_right_algorithm.ipynb  # recommend_algorithm(X) + decision flowchart (incl. ToMATo)
 │   └── 06_topological_clustering.ipynb  # ToMATo: rings/spirals vs high-dim failure
 ├── src/
 │   ├── algorithms.py    # 9 algorithm wrappers (incl. ToMATo)
