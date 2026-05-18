@@ -15,6 +15,7 @@ from src.algorithms import (
     run_kmeans,
     run_minibatch_kmeans,
     run_spectral,
+    run_tomato,
 )
 
 
@@ -74,3 +75,19 @@ def test_spectral_size_limit() -> None:
     x = np.random.default_rng(0).standard_normal((5001, 2))
     with pytest.raises(ValueError, match="n ≤ 5000"):
         run_spectral(x)
+
+
+def test_tomato_shape(toy_data: np.ndarray) -> None:
+    labels = run_tomato(toy_data, n_clusters=3)
+    assert labels.shape == (150,)
+    assert len(np.unique(labels)) == 3
+
+
+def test_tomato_circles() -> None:
+    """ToMATo must cleanly separate two concentric rings."""
+    from sklearn.datasets import make_circles
+    from sklearn.metrics import adjusted_rand_score
+
+    x, y = make_circles(n_samples=200, noise=0.05, factor=0.4, random_state=42)
+    labels = run_tomato(x, n_clusters=2, k=10)
+    assert adjusted_rand_score(y, labels) > 0.9

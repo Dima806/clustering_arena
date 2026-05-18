@@ -1,5 +1,5 @@
 .PHONY: help setup sync lint format check typecheck test test-cov \
-        notebooks run lab clean reset ci
+        notebooks run lab clean reset ci security
 
 # ─── Meta ────────────────────────────────────────────────────────
 help: ## Show this help
@@ -61,6 +61,11 @@ clean: ## Remove build artifacts, caches, notebook outputs
 reset: clean ## Full reset: clean + remove venv
 	rm -rf .venv
 	@echo "🔄 Reset. Run 'make setup' to rebuild."
+
+# ─── Security ────────────────────────────────────────────────────
+security: ## Security audit: bandit (SAST) + pip-audit (CVE scan)
+	uv run bandit -r src/ app/ -ll -q
+	uv run pip-audit
 
 # ─── CI (GitHub Actions) ─────────────────────────────────────────
 ci: sync lint test ## Full CI pipeline: sync → lint → test

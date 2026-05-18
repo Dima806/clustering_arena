@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 
 from src.datasets import (
+    load_circles,
     load_credit_card,
     load_digits_subset,
     load_penguins,
@@ -76,6 +77,17 @@ def test_credit_card_respects_n_samples() -> None:
     with patch("src.datasets.fetch_openml", return_value=fake):
         x, y = load_credit_card(n_samples=200)  # capped at 50
     assert len(x) == 50
+
+
+def test_circles_shape() -> None:
+    x, y = load_circles()
+    assert x.shape == (300, 2)
+    assert set(np.unique(y)) == {0, 1}
+
+
+def test_circles_range() -> None:
+    x, _ = load_circles()
+    assert x.min() >= -1.2 and x.max() <= 1.2
 
 
 def test_wholesale_shape() -> None:

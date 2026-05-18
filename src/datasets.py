@@ -7,7 +7,7 @@ from collections.abc import Callable
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from sklearn.datasets import fetch_openml, load_digits, load_wine
+from sklearn.datasets import fetch_openml, load_digits, load_wine, make_circles
 from sklearn.preprocessing import StandardScaler
 
 
@@ -62,10 +62,22 @@ def load_wholesale() -> tuple[np.ndarray, np.ndarray]:
     return x, y
 
 
+def load_circles() -> tuple[np.ndarray, np.ndarray]:
+    """Two concentric rings (300 samples, 2 features, 2 classes).
+
+    Classic topology benchmark — inner ring vs outer ring. Convex-cluster
+    methods (KMeans, GMM, Ward) fail; density/topological methods shine.
+    Features are NOT standardized (already in [-1, 1]).
+    """
+    x, y = make_circles(n_samples=300, noise=0.05, factor=0.4, random_state=42)
+    return x, y
+
+
 DATASETS: dict[str, Callable[..., tuple[np.ndarray, np.ndarray]]] = {
     "penguins": load_penguins,
     "wine": load_wine_data,
     "digits": load_digits_subset,
     "credit_card": load_credit_card,
     "wholesale": load_wholesale,
+    "circles": load_circles,
 }

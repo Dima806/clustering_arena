@@ -1,10 +1,11 @@
-"""Unified wrappers for all 8 clustering algorithms."""
+"""Unified wrappers for all clustering algorithms."""
 
 from __future__ import annotations
 
 from collections.abc import Callable
 
 import numpy as np
+from gudhi.clustering.tomato import Tomato
 from hdbscan import HDBSCAN
 from sklearn.cluster import (
     DBSCAN,
@@ -84,6 +85,21 @@ def run_gmm(
     ).fit_predict(x)
 
 
+def run_tomato(
+    x: np.ndarray,
+    n_clusters: int = 3,
+    k: int = 10,
+) -> np.ndarray:
+    """Run ToMATo topological clustering (gudhi).
+
+    Builds a k-NN graph and uses persistent homology to merge density modes.
+    Excels at non-convex / ring-shaped topology; struggles with high-d noise.
+    """
+    t = Tomato(n_clusters=n_clusters, k=k)
+    t.fit(x)
+    return t.labels_
+
+
 ALGORITHMS: dict[str, Callable[..., np.ndarray]] = {
     "kmeans": run_kmeans,
     "minibatch_kmeans": run_minibatch_kmeans,
@@ -93,4 +109,5 @@ ALGORITHMS: dict[str, Callable[..., np.ndarray]] = {
     "hdbscan": run_hdbscan,
     "spectral": run_spectral,
     "gmm": run_gmm,
+    "tomato": run_tomato,
 }
